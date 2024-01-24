@@ -6,8 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import "./CardComponent.css";
-import card from "../../assets/images/card.jpg";
-
+import { card } from "../../imageRouter";
 class CardComponent extends React.Component {
   render() {
     return (
