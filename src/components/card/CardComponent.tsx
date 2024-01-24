@@ -25,64 +25,65 @@ const Item = styled(Paper)(({ theme }) => ({
 class CardComponent extends React.Component {
   render() {
     return (
-      <Card>
-      <CardMedia
-        component="img"
-        alt="image"
-        height="140"
-        image={card}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Lizard
-        </Typography>
-        <Typography gutterBottom component="div">
-          Lizard
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Conditions: Consistency, temperature, bottom,
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </Typography>
-        <Divider light />
-        <Stack direction="row" alignItems="center">
-          <AccessAlarm></AccessAlarm>
-          <Typography gutterBottom variant="h5" component="div">
-            EZE &lt; &gt; LYO
-          </Typography>
-          <Typography gutterBottom variant="h6" component="div">
-            round trip flight
-          </Typography>
-        </Stack>
-        <Divider light />
-      </CardContent>
-      <Grid container spacing={3}>
-        <Grid xs>
-          <Item>
-            <Typography>Best Flight</Typography>
-            <Typography>1300 &euro;</Typography>
-            <Typography>12h 20min</Typography>
-          </Item>
-        </Grid>
-        <Grid xs>
-          <Item>
-            <Typography>Best Flight</Typography>
-            <Typography>1300 &euro;</Typography>
-            <Typography>12h 20min</Typography>
-          </Item>
-        </Grid>
-        <Grid xs>
-          <Item>
-            <Typography>Best Flight</Typography>
-            <Typography>1300 &euro;</Typography>
-            <Typography>12h 20min</Typography>
-          </Item>
-        </Grid>
-      </Grid>
-    </Card>
-      );
+      <Card sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              Lizard
+            </Typography>
+            <Typography gutterBottom component="div">
+              Lizard
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Conditions: Consistency, temperature, bottom,
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Lizards are a widespread group of squamate reptiles, with over 6,000
+              species, ranging across all continents except Antarctica
+            </Typography>
+            <Divider light />
+            <Stack direction="row" alignItems="center">
+              <AccessAlarm></AccessAlarm>
+              <Typography gutterBottom variant="h5" component="div">
+                EZE &lt; &gt; LYO
+              </Typography>
+              <Typography gutterBottom variant="h6" component="div">
+                round trip flight
+              </Typography>
+            </Stack>
+            <Divider light />
+          </CardContent>
+          <Grid container spacing={3}>
+            <Grid xs>
+              <Item>
+                <Typography>Best Flight</Typography>
+                <Typography>1300 &euro;</Typography>
+                <Typography>12h 20min</Typography>
+              </Item>
+            </Grid>
+            <Grid xs>
+              <Item>
+                <Typography>Best Flight</Typography>
+                <Typography>1300 &euro;</Typography>
+                <Typography>12h 20min</Typography>
+              </Item>
+            </Grid>
+            <Grid xs>
+              <Item>
+                <Typography>Best Flight</Typography>
+                <Typography>1300 &euro;</Typography>
+                <Typography>12h 20min</Typography>
+              </Item>
+            </Grid>
+          </Grid>
+        </Box>
+        <CardMedia
+          component="img"
+          alt="image"
+          image={card}
+        />
+      </Card>
+    );
   }
 }
 
