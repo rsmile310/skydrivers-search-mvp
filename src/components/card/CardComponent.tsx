@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
+import { AccessAlarm } from '@mui/icons-material';
 
 import "./CardComponent.css";
 import { card } from "../../imageRouter";
