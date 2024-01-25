@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, Box, Stack, Typography, Tabs, Tab, Autocomplete, TextField } from "@mui/material";
+import { styled, Box, Stack, Typography, Tabs, Tab, Autocomplete, TextField, Button } from "@mui/material";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { DateField } from '@mui/x-date-pickers/DateField';
@@ -139,6 +139,9 @@ function Header() {
             </Select>
           </Box>
         </Stack>
+        <Button variant="contained" disableElevation>
+          Search
+        </Button>
       </Box>
     </Box>
   );
