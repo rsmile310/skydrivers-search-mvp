@@ -1,5 +1,11 @@
 import * as React from "react";
 import { styled, Box, Stack, Typography, Tabs, Tab, Autocomplete, TextField } from "@mui/material";
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { DateField } from '@mui/x-date-pickers/DateField';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import dayjs, { Dayjs } from 'dayjs';
 import "./Header.css";
 
 
@@ -50,9 +56,15 @@ const StyledTab = styled((props: StyledTabProps) => (
 
 function Header() {
   const [value, setValue] = React.useState(0);
+  const [age, setAge] = React.useState('');
+  const [date, setDate] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+  };
+
+  const handleChangeLocation = (event: SelectChangeEvent) => {
+    setAge(event.target.value as string);
   };
 
   return (
@@ -76,13 +88,55 @@ function Header() {
       <Box sx={{display: 'flex'}}>
         <Stack>
           <Typography>From</Typography>
-          <Box sx={{width: '400px'}}>
+          <Box sx={{width: '350px'}}>
             <Autocomplete
               id="free-solo-demo"
               freeSolo
               options={topFilms.map((option) => option.title)}
               renderInput={(params) => <TextField {...params} variant="outlined"/>}
             />
+          </Box>
+        </Stack>
+        <Stack>
+          <Typography>From</Typography>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Box sx={{width: '350px'}}>
+              <DateField
+                value={date}
+                onChange={(newDate) => setDate(newDate)}
+                format="LL"
+              />
+            </Box>
+          </LocalizationProvider>
+        </Stack>
+        <Stack>
+          <Typography>From</Typography>
+          <Box sx={{width: '350px'}}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              onChange={handleChangeLocation}
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </Box>
+        </Stack>
+        <Stack>
+          <Typography>From</Typography>
+          <Box sx={{width: '350px'}}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={age}
+              onChange={handleChangeLocation}
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
           </Box>
         </Stack>
       </Box>
