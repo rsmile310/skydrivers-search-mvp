@@ -1,7 +1,7 @@
 import * as React from "react";
 import "../../assets/styles/SharedStyles.css";
 import CardComponent from "../../components/card/CardComponent";
-import SliderComponent from "../../components/spin/SliderComponent";
+import SliderComponent from "../../components/slider/SliderComponent";
 
 class HomePage extends React.Component {
   render() {
