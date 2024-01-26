@@ -28,40 +28,32 @@ function HomePage() {
   return (
     <div className="page">
       <Box sx={{ flexGrow: 1, p: 2 }}>
-        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        <Grid container spacing={{ xs: 2, md: 5 }} columns={{ xs: 4, sm: 8, md: 12 }}>
           <Grid item xs={0} sm={2} md={4}>
-            <Item>
-              <Filters></Filters>
-            </Item>
+            <Filters></Filters>
           </Grid>
           <Grid item xs={12} sm={6} md={8}>
-            <Item>
-              <Stack direction="row" justifyContent="space-between" alignItems="center">
-                <Box sx={{display: 'flex'}}>
-                  <Typography fontWeight="bold" sx={{mr: 1}}>130</Typography>
-                  <Typography fontWeight="bold" sx={{mr: 1}}>destinations</Typography>
-                </Box>
-                <Box sx={{display: 'flex'}}>
-                  <Typography sx={{px: 2}} fontSize="small">Sort by</Typography>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={value}
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </Box>
-              </Stack>
-            </Item>
-            <Item>
-              <CardComponent></CardComponent>
-            </Item>
-            <Item>
-              <CardComponent></CardComponent>
-            </Item>
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
+              <Box sx={{display: 'flex'}}>
+                <Typography fontWeight="bold" sx={{mr: 1}}>130</Typography>
+                <Typography fontWeight="bold" sx={{mr: 1}}>destinations</Typography>
+              </Box>
+              <Box sx={{display: 'flex'}}>
+                <Typography sx={{px: 2}} fontSize="small">Sort by</Typography>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={value}
+                  onChange={handleChange}
+                >
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+              </Box>
+            </Stack>
+            <CardComponent></CardComponent>
+            <CardComponent></CardComponent>
           </Grid>
         </Grid>
       </Box>

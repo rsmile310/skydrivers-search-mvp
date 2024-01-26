@@ -4,7 +4,7 @@ import { experimentalStyled as styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { Divider, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -19,7 +19,6 @@ function SliderSection() {
         <Typography sx={{mr: 1}}>&euro;</Typography>
       </Box>
       <SliderComponent></SliderComponent>
-      <Divider></Divider>
     </Stack>
   );
 }
