@@ -7,7 +7,7 @@ import NotFoundPage from './pages/notFoundPage/NotFoundPage';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Router basename={process.env.PUBLIC_URL}>
         <Header />
         <div>
