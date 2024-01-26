@@ -46,7 +46,7 @@ const PrettoSlider = styled(Slider)({
 class SliderComponent extends React.Component {
   render() {
     return (
-      <Box sx={{ width: 300 }}>
+      <Box>
         <PrettoSlider
           valueLabelDisplay="auto"
           aria-label="pretto slider"
