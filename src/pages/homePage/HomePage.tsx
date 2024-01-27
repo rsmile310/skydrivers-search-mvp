@@ -52,8 +52,7 @@ function HomePage() {
                 </Select>
               </Box>
             </Stack>
-            <CardComponent></CardComponent>
-            <CardComponent></CardComponent>
+            <CardComponent title="The channel" location="Normandy" country="France" conditions="" desc="" types={[]}></CardComponent>
           </Grid>
         </Grid>
       </Box>
