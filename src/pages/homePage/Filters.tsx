@@ -7,6 +7,13 @@ import { Stack, Typography, Divider } from "@mui/material";
 import SliderSection from "./SliderSection";
 import CheckboxSection from "./CheckboxSection";
 
+const checkboxes = [
+  {category: "Consistency", types: ["Low", "Medium", "High"]},
+  {category: "Quality", types: ["*", "* *", "* * *", "* * * *", "* * * * *"]},
+  {category: "Region", types: ["Europe", "South America", "Africa", "South East Asia", "Central America"]},
+  {category: "Country", types: ["France", "Argentina", "Kenia", "Vietnam", "Costa Rica"]},
+];
+
 function Filters() {
   return (
     <Box>
@@ -15,10 +22,9 @@ function Filters() {
         <SliderSection></SliderSection>
         <SliderSection></SliderSection>
         <SliderSection></SliderSection>
-        <CheckboxSection></CheckboxSection>
-        <CheckboxSection></CheckboxSection>
-        <CheckboxSection></CheckboxSection>
-        <CheckboxSection></CheckboxSection>
+        {checkboxes?.map((item) => (
+        <CheckboxSection category={item.category} types={item.types}></CheckboxSection>
+        ))}
       </Stack>
     </Box>
   );

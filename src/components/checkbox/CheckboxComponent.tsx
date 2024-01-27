@@ -8,27 +8,28 @@ import "./CheckboxComponent.css";
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-class CheckboxComponent extends React.Component {
-  render() {
-    return (
-      <div>
-        <FormGroup>
-          <FormControlLabel control={
-            <Checkbox
-              {...label}
-              defaultChecked
-              sx={{
-                color: pink[800],
-                '&.Mui-checked': {
-                  color: pink[600],
-                },
-              }}
-            />
-          } label="xxx" />
-        </FormGroup>
-      </div>
-    );
-  }
+type props = {
+  item: string;
+};
+
+const CheckboxComponent: React.FC<props> = ({ item }) => {
+  return (
+    <div>
+      <FormGroup>
+        <FormControlLabel control={
+          <Checkbox
+            {...label}
+            sx={{
+              color: pink[800],
+              '&.Mui-checked': {
+                color: pink[600],
+              },
+            }}
+          />
+        } label={item} />
+      </FormGroup>
+    </div>
+  );
 }
 
 export default CheckboxComponent;
