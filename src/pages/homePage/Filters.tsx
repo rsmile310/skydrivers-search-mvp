@@ -15,9 +15,9 @@ const checkboxes = [
 ];
 
 const sliders = [
-  {category: "Price", min: 400, max: 1400, unit: "&euro;"},
+  {category: "Price", min: 400, max: 1400, unit: "€"},
   {category: "Distance", min: 400, max: 1400, unit: "km"},
-  {category: "Water temperature", min: 10, max: 25, unit: "*"},
+  {category: "Water temperature", min: 10, max: 25, unit: "°C"},
 ];
 
 function Filters() {
