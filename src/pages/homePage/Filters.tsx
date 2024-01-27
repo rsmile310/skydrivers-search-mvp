@@ -14,14 +14,20 @@ const checkboxes = [
   {category: "Country", types: ["France", "Argentina", "Kenia", "Vietnam", "Costa Rica"]},
 ];
 
+const sliders = [
+  {category: "Price", min: 400, max: 1400, unit: "&euro;"},
+  {category: "Distance", min: 400, max: 1400, unit: "km"},
+  {category: "Water temperature", min: 10, max: 25, unit: "*"},
+];
+
 function Filters() {
   return (
     <Box>
       <Typography fontWeight="bold">Filters</Typography>
       <Stack divider={<Divider flexItem />} spacing={2}>
-        <SliderSection></SliderSection>
-        <SliderSection></SliderSection>
-        <SliderSection></SliderSection>
+        {sliders?.map((item) => (
+        <SliderSection category={item.category} min={item.min} max={item.max} unit={item.unit}></SliderSection>
+        ))}
         {checkboxes?.map((item) => (
         <CheckboxSection category={item.category} types={item.types}></CheckboxSection>
         ))}

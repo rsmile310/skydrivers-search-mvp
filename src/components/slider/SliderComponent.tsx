@@ -6,7 +6,7 @@ import "./SliderComponent.css";
 
 const PrettoSlider = styled(Slider)({
   color: '#52af77',
-  height: 8,
+  height: 4,
   '& .MuiSlider-track': {
     border: 'none',
   },
@@ -43,18 +43,23 @@ const PrettoSlider = styled(Slider)({
   },
 });
 
-class SliderComponent extends React.Component {
-  render() {
-    return (
-      <Box>
-        <PrettoSlider
-          valueLabelDisplay="auto"
-          aria-label="pretto slider"
-          defaultValue={20}
-        />
-      </Box>
-    );
-  }
+type props = {
+  min: number;
+  max: number;
+};
+
+const SliderComponent: React.FC<props> = ({ min, max }) => {
+  return (
+    <Box>
+      <PrettoSlider
+        valueLabelDisplay="auto"
+        aria-label="pretto slider"
+        defaultValue={max}
+        min={min}
+        max={max}
+      />
+    </Box>
+  );
 }
 
 export default SliderComponent;

@@ -8,17 +8,24 @@ import { Stack, Typography } from "@mui/material";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-function SliderSection() {
+type props = {
+  category: string;
+  min: number;
+  max: number;
+  unit: string;
+};
+
+const SliderSection: React.FC<props> = ({ category, min, max, unit }) => {
   return (
     <Stack>
-      <Typography>Price</Typography>
+      <Typography>{category}</Typography>
       <Box sx={{display: 'flex'}}>
-        <Typography sx={{mr: 1}}>400</Typography>
+        <Typography sx={{mr: 1}}>{min}</Typography>
         <Typography sx={{mr: 1}}>-</Typography>
-        <Typography sx={{mr: 1}}>1400</Typography>
-        <Typography sx={{mr: 1}}>&euro;</Typography>
+        <Typography sx={{mr: 1}}>{max}</Typography>
+        <Typography sx={{mr: 1}}>{unit}</Typography>
       </Box>
-      <SliderComponent></SliderComponent>
+      <SliderComponent min={min} max={max}></SliderComponent>
     </Stack>
   );
 }
