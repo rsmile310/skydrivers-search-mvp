@@ -19,6 +19,8 @@ function App() {
         < div >
           <Routes>
             <Route path="/" element={<HomePage skyType={skyType} />} />
+            <Route path="/about" element={<NotFoundPage />} />
+            <Route path="/contact" element={<NotFoundPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>

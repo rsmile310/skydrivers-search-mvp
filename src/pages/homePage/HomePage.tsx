@@ -67,7 +67,7 @@ const HomePage: React.FC<props> = (props) => {
           }}>
           <Filters></Filters>
         </Grid>
-        <Grid item xs={12} lg={9} pl={{ xs: 1, lg: 3 }}>
+        <Grid item xs={12} lg={9} pl={{ xs: 0, lg: 3 }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center" mb={{ xs: 2, md: 3 }}>
             <Box display="flex" alignItems="center">
               <Box sx={{ display: 'flex', }}>

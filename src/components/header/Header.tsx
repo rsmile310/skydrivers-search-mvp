@@ -1,4 +1,5 @@
 import React, { FormEvent, SyntheticEvent, useState } from "react";
+import { Link } from "react-router-dom";
 import { styled, Box, Stack, Grid, Typography, Tabs, Tab, Autocomplete, TextField, Button } from "@mui/material";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,6 +11,7 @@ import { Dayjs } from 'dayjs';
 import InputAdornment from '@mui/material/InputAdornment';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import "./Header.css";
+
 
 
 interface StyledTabsProps {
@@ -68,6 +70,7 @@ const StyledTab = styled((props: StyledTabProps) => (
 }));
 
 const Header: React.FC<props> = (props) => {
+
   const positionData = [
     'New Delhi Airport, India',
     'London Heathrow Airport , London',
@@ -107,6 +110,7 @@ const Header: React.FC<props> = (props) => {
   // search form submit
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(formData)
     // Endpoint where you want to send the form data
     const endpoint = `${process.env.REACT_APP_HOST_API_KEY}`;
     // Prepare the headers
@@ -146,10 +150,18 @@ const Header: React.FC<props> = (props) => {
     }}>
       <Stack sx={{ maxWidth: "1400px", mx: "auto" }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center" py={4}>
-          <Typography fontWeight="bold" color="white" variant="h5" component="h5">SKYRIDERS</Typography>
+          <Box sx={{ '& a': { fontWeight: 'bold', fontSize: "28px", textDecoration: 'none' } }}>
+            <Link color="white" to="/" style={{ color: "white" }}>
+              SKYRIDERS
+            </Link>
+          </Box>
           <Box sx={{ display: 'flex' }}>
-            <Typography sx={{ px: 2 }} color="white" fontSize="small">ABOUT</Typography>
-            <Typography sx={{ px: 2 }} color="white" fontSize="small">CONTACT</Typography>
+            <Box sx={{ px: 2 }}>
+              <Link color="white" to="/about" style={{ color: "white" }}>ABOUT</Link>
+            </Box>
+            <Box>
+              <Link color="white" to="/contact" style={{ color: "white" }}>CONTACT</Link>
+            </Box>
           </Box>
         </Stack>
         <Box>
@@ -166,7 +178,7 @@ const Header: React.FC<props> = (props) => {
 
           <Box component="form" method="post" onSubmit={handleSubmit}>
             <Stack flexDirection="row" sx={{ flexWrap: { xs: 'wrap', lg: 'nowrap' } }}>
-              <Stack width="100%" mr={1} mt={3} sx={{
+              <Stack width="100%" mr={{ xs: 0, lg: 1 }} mt={3} sx={{
                 mb: { xs: 2, lg: 0 },
                 '& .MuiOutlinedInput-root': { backgroundColor: '#fff', borderRadius: '4px' },
                 '& fieldset': { border: 'none !important' },
@@ -286,7 +298,7 @@ const Header: React.FC<props> = (props) => {
             </Stack>
           </Box>
         </Box>
-      </Stack>
+      </Stack >
     </Box >
   );
 }
