@@ -12,23 +12,21 @@ type props = {
   title: string;
   location: string;
   country: string;
-  conditions: string;
   desc: string;
-  types: string[] | null;
 };
 
-const CardComponent: React.FC<props> = ({ title, location, country, conditions, desc, types }) => {
+const CardComponent: React.FC<props> = (props) => {
   return (
-    <Card sx={{ display: 'flex', boxShadow: 4 }}>
+    <Card sx={{ display: 'flex', boxShadow: 4, mb: 3 }}>
       <Grid container sx={{ flexDirection: { xs: 'column-reverse', md: 'row' } }} >
         <Grid xs={12} md={7}>
           <Box sx={{ p: { xs: 0, sm: 2 } }}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="h5" sx={{ fontWeight: '900' }} >
-                {title}
+                {props.title}
               </Typography>
               <Typography gutterBottom component="div" sx={{ mb: { xs: 2, sm: 3 } }}>
-                {location}, {country}
+                {props.location}, {props.country}
               </Typography>
               <Box sx={{ mb: 3 }}>
                 <Typography variant="body1" color="text.secondary" mb={2}>
@@ -55,25 +53,25 @@ const CardComponent: React.FC<props> = ({ title, location, country, conditions, 
               <Grid container spacing={3}>
                 <Grid xs>
                   <Typography variant='body1' component='p' fontWeight='bold'>The best</Typography>
-                  <Typography variant='h6' component='h6' fontWeight='bolder'>1300 &euro;</Typography>
+                  <Typography variant='h6' component='h6' fontWeight='bolder'>1500 &euro;</Typography>
                   <Typography variant='body2' component='p' fontWeight='lighter' color="text.secondary">12h 20min</Typography>
                 </Grid>
                 <Grid xs>
-                  <Typography variant='body1' component='p' fontWeight='bold'>The best</Typography>
-                  <Typography variant='h6' component='h6' fontWeight='bolder'>1300 &euro;</Typography>
-                  <Typography variant='body2' component='p' fontWeight='lighter' color="text.secondary">12h 20min</Typography>
+                  <Typography variant='body1' component='p' fontWeight='bold'>The cheapest</Typography>
+                  <Typography variant='h6' component='h6' fontWeight='bolder'>900 &euro;</Typography>
+                  <Typography variant='body2' component='p' fontWeight='lighter' color="text.secondary">16h 20min</Typography>
                 </Grid>
                 <Grid xs>
-                  <Typography variant='body1' component='p' fontWeight='bold'>The best</Typography>
+                  <Typography variant='body1' component='p' fontWeight='bold'>The fastest</Typography>
                   <Typography variant='h6' component='h6' fontWeight='bolder'>1300 &euro;</Typography>
-                  <Typography variant='body2' component='p' fontWeight='lighter' color="text.secondary">12h 20min</Typography>
+                  <Typography variant='body2' component='p' fontWeight='lighter' color="text.secondary">8h 20min</Typography>
                 </Grid>
               </Grid>
             </CardContent>
           </Box>
         </Grid>
         <Grid xs={12} md={5} sx={{ height: { xs: "200px", sm: "300px", md: "100%" } }}>
-          <Box component="img" sx={{ width: "100%", height: "100%", objectFit: "cover" }} src='./assets/images/card.jpg' alt="image" />
+          <Box component="img" sx={{ width: "100%", height: "100%", objectFit: "cover" }} src='./assets/images/card_img1.jpg' alt="image" />
         </Grid>
       </Grid>
     </Card>

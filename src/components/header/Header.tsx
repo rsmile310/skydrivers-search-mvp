@@ -1,13 +1,12 @@
-import * as React from "react";
-import { styled, Box, Stack, Grid, Typography, Tabs, Tab, Autocomplete, TextField, Button, Paper } from "@mui/material";
+import React, { FormEvent, SyntheticEvent, useState } from "react";
+import { styled, Box, Stack, Grid, Typography, Tabs, Tab, Autocomplete, TextField, Button } from "@mui/material";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { DateField } from '@mui/x-date-pickers/DateField';
-import dayjs from 'dayjs';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Dayjs } from 'dayjs';
 import InputAdornment from '@mui/material/InputAdornment';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import "./Header.css";
@@ -16,7 +15,7 @@ import "./Header.css";
 interface StyledTabsProps {
   children?: React.ReactNode;
   value: number;
-  onChange: (event: React.SyntheticEvent, newValue: number) => void;
+  onChange: (event: SyntheticEvent, newValue: number) => void;
 }
 
 const StyledTabs = styled((props: StyledTabsProps) => (
@@ -40,7 +39,17 @@ const StyledTabs = styled((props: StyledTabsProps) => (
 interface StyledTabProps {
   label: string;
 }
-
+interface FormData {
+  position: string;
+  country: string;
+  region: string;
+  startDate: string;
+  endDate: string;
+}
+type props = {
+  skyType: number;
+  onSkytypeChange: (event: React.SyntheticEvent, newValue: number) => void;
+}
 const StyledTab = styled((props: StyledTabProps) => (
   <Tab disableRipple {...props} />
 ))(({ theme }) => ({
@@ -58,7 +67,7 @@ const StyledTab = styled((props: StyledTabProps) => (
   },
 }));
 
-function Header() {
+const Header: React.FC<props> = (props) => {
   const positionData = [
     'New Delhi Airport, India',
     'London Heathrow Airport , London',
@@ -72,32 +81,60 @@ function Header() {
     'Any', 'India', 'United Kingdom', 'Hong Kong', 'United States', 'France', 'Germany', 'Japan'
   ];
 
-  const [value, setValue] = React.useState(0);
-  const [region, setRegion] = React.useState(regionData[0]);
-  const [country, setCountry] = React.useState(countryData[0]);
-  const [position, setPosition] = React.useState(positionData[0]);
-  // const [date, setDate] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
+  const [formData, setFormData] = useState<FormData>({
+    position: positionData[0],
+    country: countryData[0],
+    region: regionData[0],
+    startDate: '',
+    endDate: '',
+  });
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const handleFormChange = (event: SelectChangeEvent) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleChangeRegion = (event: SelectChangeEvent) => {
-    setRegion(event.target.value as string);
+  const handlePositionChange = (
+    event: React.SyntheticEvent,
+    newValue: string | null,
+  ) => {
+    setFormData({ ...formData, position: newValue || '' });
   };
+  const handleDateChange = (name: string) => (newValue: Dayjs | null) => {
+    setFormData({ ...formData, [name]: newValue ? newValue.toISOString() : "" })
+  }
 
-  const handleChangeCountry = (event: SelectChangeEvent) => {
-    setCountry(event.target.value as string);
+  // search form submit
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Endpoint where you want to send the form data
+    const endpoint = `${process.env.REACT_APP_HOST_API_KEY}`;
+    // Prepare the headers
+    const headers = {
+      'Content-Type': 'application/json',
+      // Include other headers like authorization if necessary
+    };
+    // Prepare the body data
+    const body = JSON.stringify(formData);
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: headers,
+        body: body,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('Success:', data);
+      // Handle success - perhaps set a success message or redirect
+    } catch (error) {
+      console.error('Error during form submission:', error);
+
+      // Handle errors - perhaps set an error message in your state and display it
+    }
   };
-
-  const handlePostionChange = (event: React.SyntheticEvent, newValue: string) => {
-    setPosition(newValue);
-  };
-
-  // const handlePostionInputChange = (event, newInputValue) => {
-  //   setInputValue(newInputValue);
-  // };
-
   return (
     <Box sx={{
       backgroundImage: 'linear-gradient(135deg, #33004A, #0E0958)',
@@ -117,8 +154,8 @@ function Header() {
         </Stack>
         <Box>
           <StyledTabs
-            value={value}
-            onChange={handleChange}
+            value={props.skyType}
+            onChange={props.onSkytypeChange}
             aria-label="styled tabs example"
             sx={{ mb: { xs: 0, md: 3 } }}
           >
@@ -126,129 +163,132 @@ function Header() {
             <StyledTab label="KITESURF" sx={{ minWidth: 'fit-content', mr: 3, fontSize: '22px', fontWeight: 'bold' }} />
             <StyledTab label="SKI" sx={{ minWidth: 'fit-content', fontSize: '22px', fontWeight: 'bold' }} />
           </StyledTabs>
-          <Stack flexDirection="row" sx={{ flexWrap: { xs: 'wrap', lg: 'nowrap' } }}>
-            <Stack width="100%" mr={1} mt={3} sx={{
-              mb: { xs: 2, lg: 0 },
-              '& .MuiOutlinedInput-root': { backgroundColor: '#fff', borderRadius: '4px' },
-              '& fieldset': { border: 'none !important' },
 
-            }}>
-              <Grid container spacing={1}>
-                <Grid item xs={12} sm={6} lg={4} >
-                  <Stack>
-                    <Typography variant="body2" component='p' color='white' mb={1}>From</Typography>
-                    <Box>
-                      <Autocomplete
-                        id="free-solo-demo"
-                        freeSolo
-                        options={positionData}
-                        value={position}
-                        onChange={() => handlePostionChange}
-                        inputValue={position}
-                        onInputChange={handlePostionChange}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            variant="outlined"
-                            InputProps={{
-                              ...params.InputProps,
-                              startAdornment: (
-                                <InputAdornment position="start">
-                                  <FlightTakeoffIcon />
-                                </InputAdornment>
-                              ),
-                            }}
-                          />
-                        )}
-                      />
-                    </Box>
-                  </Stack>
-                </Grid>
-                <Grid item xs={12} sm={6} lg={4} sx={{
-                  mb: { xs: 1, lg: 0 }
-                }}>
-                  <Stack sx={{
-                    mt: "20px",
-                  }}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
-                        <Stack flexDirection="row" sx={{ backgroundColor: 'white', borderRadius: "4px" }} >
-                          <DemoItem>
-                            <DatePicker />
-                          </DemoItem>
-                          <DemoItem >
-                            <DatePicker />
-                          </DemoItem>
-                        </Stack>
-                        {/* <DemoItem label="Validation: uses the day of `maxDate`">
-                  <DatePicker maxDate={dayjs('2022-04-17')} />
-                </DemoItem> */}
-                      </DemoContainer>
-                    </LocalizationProvider>
-                  </Stack>
-                </Grid>
-                <Grid item xs={6} lg={2}>
-                  <Stack>
-                    <Typography variant="body2" component="p" color="white" mb={1}>Prefered region</Typography>
-                    <Box>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={region}
-                        renderValue={() => {
-                          return region;
-                        }}
-                        onChange={handleChangeRegion}
-                        sx={{ width: "100%" }}
-                      >
-                        {regionData.map((item, index) =>
-                          <MenuItem key={index} value={item}>{item}</MenuItem>
-                        )}
-                      </Select>
-                    </Box>
-                  </Stack>
-                </Grid>
-                <Grid item xs={6} lg={2}>
-                  <Stack>
-                    <Typography variant="body2" component="p" color="white" mb={1}>Prefered country</Typography>
-                    <Box>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={country}
-                        renderValue={() => {
-                          return country;
-                        }}
-                        onChange={handleChangeCountry}
-                        sx={{ width: "100%" }}
-                      >
-                        {countryData.map((item, index) =>
-                          <MenuItem key={index} value={item}>{item}</MenuItem>
-                        )}
-                      </Select>
-                    </Box>
-                  </Stack>
-                </Grid>
-              </ Grid>
-            </Stack>
-            <Button variant="contained" disableElevation
-              sx={{
-                width: '150px', height: '56px',
-                mx: 'auto',
-                mt: 'auto',
-                backgroundColor: "#00C6EE!important",
-                fontWeight: 'bold'
+          <Box component="form" method="post" onSubmit={handleSubmit}>
+            <Stack flexDirection="row" sx={{ flexWrap: { xs: 'wrap', lg: 'nowrap' } }}>
+              <Stack width="100%" mr={1} mt={3} sx={{
+                mb: { xs: 2, lg: 0 },
+                '& .MuiOutlinedInput-root': { backgroundColor: '#fff', borderRadius: '4px' },
+                '& fieldset': { border: 'none !important' },
+
               }}>
-              Search
-            </Button>
-          </Stack>
+                <Grid container spacing={1}>
+                  <Grid item xs={12} sm={6} lg={4} >
+                    <Stack>
+                      <Typography variant="body2" component='p' color='white' mb={1}>From</Typography>
+                      <Box>
+                        <Autocomplete
+                          id="free-solo-demo"
+                          freeSolo
+                          options={positionData}
+                          value={formData.position}
+                          onChange={handlePositionChange}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              variant="outlined"
+                              name="position"
+                              InputProps={{
+                                ...params.InputProps,
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <FlightTakeoffIcon />
+                                  </InputAdornment>
+                                ),
+                              }}
+                            />
+                          )}
+                        />
+                      </Box>
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={12} sm={6} lg={4} sx={{
+                    mb: { xs: 1, lg: 0 }
+                  }}>
+                    <Stack sx={{
+                      mt: "20px",
+                    }}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
+                          <Stack flexDirection="row" sx={{ backgroundColor: 'white', borderRadius: "4px" }} >
+                            <DemoItem>
+                              <DatePicker
+                                name="startDate"
+                                onChange={handleDateChange("startDate")}
+                              />
+                            </DemoItem>
+                            <DemoItem >
+                              <DatePicker
+                                name="endDate"
+                                onChange={handleDateChange("endDate")} />
+                            </DemoItem>
+                          </Stack>
+                        </DemoContainer>
+                      </LocalizationProvider>
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={6} lg={2}>
+                    <Stack>
+                      <Typography variant="body2" component="p" color="white" mb={1}>Prefered region</Typography>
+                      <Box>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          name="region"
+                          id="demo-simple-select"
+                          value={formData.region}
+                          renderValue={() => {
+                            return formData.region;
+                          }}
+                          onChange={handleFormChange}
+                          sx={{ width: "100%" }}
+                        >
+                          {regionData.map((item, index) =>
+                            <MenuItem key={index} value={item}>{item}</MenuItem>
+                          )}
+                        </Select>
+                      </Box>
+                    </Stack>
+                  </Grid>
+                  <Grid item xs={6} lg={2}>
+                    <Stack>
+                      <Typography variant="body2" component="p" color="white" mb={1}>Prefered country</Typography>
+                      <Box>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          name="country"
+                          value={formData.country}
+                          renderValue={() => {
+                            return formData.country;
+                          }}
+                          onChange={handleFormChange}
+                          sx={{ width: "100%" }}
+                        >
+                          {countryData.map((item, index) =>
+                            <MenuItem key={index} value={item}>{item}</MenuItem>
+                          )}
+                        </Select>
+                      </Box>
+                    </Stack>
+                  </Grid>
+                </ Grid>
+              </Stack>
+              <Button type="submit" variant="contained" disableElevation
+                sx={{
+                  width: '150px', height: '56px',
+                  mx: 'auto',
+                  mt: 'auto',
+                  backgroundColor: "#00C6EE!important",
+                  fontWeight: 'bold'
+                }}>
+                Search
+              </Button>
+            </Stack>
+          </Box>
         </Box>
-
       </Stack>
     </Box >
   );
 }
-
-
 
 export default Header;
