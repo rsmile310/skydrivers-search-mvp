@@ -20,13 +20,14 @@ const CheckboxComponent: React.FC<props> = ({ item }) => {
           <Checkbox
             {...label}
             sx={{
-              color: pink[800],
+              color: '#9c27b0',
               '&.Mui-checked': {
-                color: pink[600],
+                color: '#9c27b0',
               },
             }}
           />
-        } label={item} />
+        } label={item}
+          sx={{ '& .MuiFormControlLabel-label': { fontSize: '14px' } }} />
       </FormGroup>
     </div>
   );
