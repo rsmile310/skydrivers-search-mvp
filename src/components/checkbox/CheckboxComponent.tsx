@@ -1,7 +1,6 @@
 import * as React from 'react';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { pink } from '@mui/material/colors';
 import Checkbox from '@mui/material/Checkbox';
 
 import "./CheckboxComponent.css";
